@@ -7,13 +7,14 @@ const Root = () => {
   return (
     <div>
       <div>
-        {" "}
         <Navber />
       </div>
       <div>
         <Outlet />
       </div>
-      <Footer />
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 };

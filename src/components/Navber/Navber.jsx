@@ -1,99 +1,184 @@
-import React from "react";
-import logo from "../../assets/bg remove logo.png";
-import { Link } from "react-router";
+"use client";
 
-const Navber = () => {
+import * as React from "react";
+import { useState } from "react";
+import { Link } from "react-router";
+import { MenuIcon, XIcon } from "lucide-react";
+
+import logo from "../../assets/bg remove logo.png";
+
+// Define countries and their services
+const services = {
+  Japan: ["JTE Visa", "Technical Visa", "Student Visa"],
+  Singapore: ["Work Permit", "Tourist Visa"],
+  Canada: ["Student Visa", "Work Visa"],
+};
+
+export function NavberWithMobileSubmenu() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState < { key } > {};
+
+  const toggleSubmenu = (key) => {
+    setMobileSubmenuOpen((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
   return (
-    <div>
-      <div className="navbar bg-base-100 shadow-md p-5 fixed top-0 left-0 z-50">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 h-[500px] p-2 shadow"
-            >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
-            </ul>
+    <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <img src={logo} alt="Logo" className="h-10 w-auto" />
+            <span className="text-xl font-semibold">
+              <span className="italic text-[#b40e14]">Monowara</span> Group
+            </span>
           </div>
-          <div className=" flex">
-            <img className=" w-25" src={logo} alt="" />
-            <a className="primary-font text-xl">
-              <span className=" text-xl italic text-[#b40e14]">Monowara</span>{" "}
-              Group
-            </a>
+
+          {/* Desktop Menu */}
+          <ul className="hidden lg:flex space-x-6 items-center">
+            <li>
+              <Link to="/" className="hover:text-[#b40e14]">
+                Home
+              </Link>
+            </li>
+
+            {/* Services dropdown */}
+            <li className="relative group">
+              <span className="cursor-pointer hover:text-[#b40e14]">
+                Services
+              </span>
+              <ul className="absolute top-full left-0 hidden group-hover:block bg-white shadow-lg rounded-lg py-2 w-48">
+                {Object.keys(services).map((country) => (
+                  <li key={country} className="relative group">
+                    <span className="px-4 py-2 flex justify-between items-center hover:bg-gray-100 cursor-pointer">
+                      {country} ▸
+                    </span>
+                    <ul className="absolute top-0 left-full hidden group-hover:block bg-white shadow-lg rounded-lg py-2 w-40">
+                      {services[country].map((visa) => (
+                        <li key={visa} className="px-4 py-2 hover:bg-gray-100">
+                          {visa}
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+            </li>
+
+            <li>
+              <Link to="/about-us" className="hover:text-[#b40e14]">
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact-us" className="hover:text-[#b40e14]">
+                Contact Us
+              </Link>
+            </li>
+          </ul>
+
+          {/* Right Login */}
+          <div className="hidden lg:flex">
+            <Link
+              to="/login"
+              className="btn btn-sm bg-[#b40e14] hover:bg-red-700 text-white rounded-lg"
+            >
+              Login
+            </Link>
+          </div>
+
+          {/* Mobile Hamburger */}
+          <div className="lg:hidden">
+            <button onClick={() => setMobileOpen(!mobileOpen)}>
+              {mobileOpen ? (
+                <XIcon className="w-6 h-6" />
+              ) : (
+                <MenuIcon className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
-        <div className="navbar-center hidden  lg:flex">
-          <ul className="menu primary-font text-[16px] menu-horizontal px-3">
+      </div>
+
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div className="lg:hidden bg-white border-t shadow-md">
+          <ul className="flex flex-col p-4 gap-2">
             <li>
-              <Link to="/">Home</Link>
+              <Link
+                to="/"
+                className="block py-2 px-4 hover:bg-gray-100 rounded"
+              >
+                Home
+              </Link>
             </li>
+
+            {/* Services Submenu */}
             <li>
-              <details className="">
-                <summary>Services</summary>
-                <ul className="p-5 z-50 w-50 h-50">
-                  <li>
-                    <details>
-                      <summary>
-                        <a>Japan</a>
-                      </summary>
-                      <ul>
-                        <li>JTE</li>
-                      </ul>
-                    </details>
-                  </li>
-                  <li>
-                    <a>Singapure</a>
-                  </li>
+              <button
+                onClick={() => toggleSubmenu("services")}
+                className="w-full flex justify-between items-center py-2 px-4 hover:bg-gray-100 rounded"
+              >
+                Services
+                <span>{mobileSubmenuOpen["services"] ? "▾" : "▸"}</span>
+              </button>
+              {mobileSubmenuOpen["services"] && (
+                <ul className="pl-4 flex flex-col gap-1">
+                  {Object.keys(services).map((country) => (
+                    <li key={country}>
+                      <button
+                        onClick={() => toggleSubmenu(country)}
+                        className="w-full flex justify-between items-center py-1 px-2 hover:bg-gray-100 rounded"
+                      >
+                        {country} {mobileSubmenuOpen[country] ? "▾" : "▸"}
+                      </button>
+                      {mobileSubmenuOpen[country] && (
+                        <ul className="pl-4 flex flex-col gap-1">
+                          {services[country].map((visa) => (
+                            <li key={visa}>
+                              <Link
+                                to="#"
+                                className="block py-1 px-2 hover:bg-gray-100 rounded"
+                              >
+                                {visa}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
                 </ul>
-              </details>
+              )}
+            </li>
+
+            <li>
+              <Link
+                to="/about-us"
+                className="block py-2 px-4 hover:bg-gray-100 rounded"
+              >
+                About Us
+              </Link>
             </li>
             <li>
-              <Link to="/about-us">About Us</Link>
+              <Link
+                to="/contact-us"
+                className="block py-2 px-4 hover:bg-gray-100 rounded"
+              >
+                Contact Us
+              </Link>
             </li>
             <li>
-              <Link to="/contact-us">Contact Us</Link>
+              <Link
+                to="/login"
+                className="block py-2 px-4 bg-[#b40e14] text-white rounded hover:bg-red-700"
+              >
+                Login
+              </Link>
             </li>
           </ul>
         </div>
-        <div className="navbar-end">
-          <a className="btn primary-font">Login</a>
-        </div>
-      </div>
-    </div>
+      )}
+    </nav>
   );
-};
-
-export default Navber;
+}

@@ -4,7 +4,7 @@ import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Root from "../layouts/Root";
 import AboutUs from "../pages/AboutUs/AboutUs";
-import ContactUs from "../pages/AboutUs/ContactUs/ContactUs";
+import ContactUs from "../pages/ContactUs/ContactUs";
 
 const router = createBrowserRouter([
   {

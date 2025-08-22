@@ -1,20 +1,21 @@
 import React from "react";
+import staffImg from "../../assets/staff.jpg";
 
 const staffMembers = [
   {
     name: "Md Golam Kibria Bhuiyan",
     role: "Managing Director",
-    image: "/staff/golam.jpg", // replace with actual image path
+    image: staffImg, // replace with actual image path
   },
   {
     name: "Md Baharul Alam Bonny",
     role: "Director of Administration",
-    image: "/staff/bonny.jpg",
+    image: staffImg,
   },
   {
     name: "Md Salahuddin",
     role: "Director of Administration",
-    image: "/staff/salahuddin.jpg",
+    image: staffImg,
   },
 ];
 

@@ -18,9 +18,6 @@ const MainLayout = () => {
         <Testimonials />
         <Services />
       </main>
-      <footer>
-        <Footer />
-      </footer>
     </div>
   );
 };
