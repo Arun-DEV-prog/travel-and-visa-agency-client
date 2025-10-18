@@ -1,26 +1,27 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FaStar, FaQuoteRight } from "react-icons/fa";
-
-const testimonials = [
-  {
-    name: "Ariyana Azad Roja",
-    role: "Tokyo International University | Digital Business and Innovation.",
-    image: "/graduates/roja.jpg", // replace with actual image path
-    feedback:
-      "The academy's guidance was instrumental in helping me achieve my academic goals in Japan.",
-    rating: 5,
-  },
-  {
-    name: "Md Murad Sarker",
-    role: "Student visa to Japan",
-    image: "/graduates/murad.jpg",
-    feedback:
-      "Great courses at an affordable price. Highly recommended for Japanese learners!",
-    rating: 5,
-  },
-];
+import axiousPublic from "../../hooks/axiousPublic";
 
 const Testimonials = () => {
+  const {
+    data: feedback = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["feedback"],
+    queryFn: async () => {
+      const res = await axiousPublic.get("/feedback");
+      return res.data;
+    },
+  });
+
+  if (isLoading) return <p className="text-center mt-5">Loading...</p>;
+  if (isError)
+    return (
+      <p className="text-center mt-5 text-red-500">Error loading feedbacks.</p>
+    );
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6">
@@ -29,7 +30,7 @@ const Testimonials = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {testimonials.map((t, index) => (
+          {feedback.map((t, index) => (
             <div
               key={index}
               className="relative bg-gray-800 text-white p-8 rounded-lg shadow-lg hover:-translate-y-2 hover:shadow-xl transition duration-300"

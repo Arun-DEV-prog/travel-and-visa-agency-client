@@ -17,9 +17,7 @@ const ContactInfo = () => {
             </div>
           </div>
           <h3 className="text-lg font-semibold mb-2">Phone</h3>
-          <p className="text-gray-700">+880 1325-661767</p>
-          <p className="text-gray-700">+880 1715-458036</p>
-          <p className="text-gray-700">+880 1913-727202</p>
+          <p className="text-gray-700">+880 1763-669952</p>
         </div>
 
         {/* Email */}
@@ -30,7 +28,7 @@ const ContactInfo = () => {
             </div>
           </div>
           <h3 className="text-lg font-semibold mb-2">Email</h3>
-          <p className="text-gray-700">jalc.bd2024@gmail.com</p>
+          <p className="text-gray-700">monowarahtt17@gmail.com</p>
         </div>
 
         {/* Opening Hours */}
@@ -54,9 +52,7 @@ const ContactInfo = () => {
           </div>
           <h3 className="text-lg font-semibold mb-2">Address</h3>
           <p className="text-gray-700">
-            A-61/4 (1st Floor), Ali Market, <br />
-            Khilkhet Bazar Road, Bottola, <br />
-            Khilkhet, Dhaka-1229
+            Advanced Jaman Center(3rd Floor),Ghonapara Mor,Gopalganj
           </p>
         </div>
       </div>

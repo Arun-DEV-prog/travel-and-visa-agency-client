@@ -94,15 +94,14 @@ export default function Footer() {
         <div>
           <h3 className="text-lg font-semibold mb-3">Contact Info</h3>
           <p className="text-sm">
-            <strong>Address:</strong> A-61/4 (1st Floor), Ali Market, Khilkhet
-            Bazar Road, Bottola, Khilkhet, Dhaka-1229
+            <strong>Address:</strong> Advanced Jaman Center(3rd Floor),Ghonapara
+            Mor,Gopalganj
           </p>
           <p className="mt-2 text-sm">
-            <strong>Phone:</strong> +880 1715-458036 <br />
-            +880 1325-661767
+            <strong>Phone:</strong>+8801763669952 <br />
           </p>
           <p className="mt-2 text-sm">
-            <strong>Email:</strong> info@japanambition.com
+            <strong>Email:</strong> monowarahtt17@gmail.com
           </p>
 
           {/* Social Icons */}

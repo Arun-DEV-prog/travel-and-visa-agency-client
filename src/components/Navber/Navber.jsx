@@ -1,68 +1,87 @@
-"use client";
-
-import * as React from "react";
-import { useState } from "react";
-import { Link } from "react-router";
-import { MenuIcon, XIcon } from "lucide-react";
-
+import React, { useState } from "react";
+import { Menu as MenuIcon, X as XIcon, ArrowRight } from "lucide-react";
 import logo from "../../assets/bg remove logo.png";
+import { Link } from "react-router";
+import { FaArrowRight } from "react-icons/fa";
 
-// Define countries and their services
-const services = {
-  Japan: ["JTE Visa", "Technical Visa", "Student Visa"],
-  Singapore: ["Work Permit", "Tourist Visa"],
-  Canada: ["Student Visa", "Work Visa"],
-};
-
-export function NavberWithMobileSubmenu() {
+export default function Navber() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState < { key } > {};
 
-  const toggleSubmenu = (key) => {
-    setMobileSubmenuOpen((prev) => ({ ...prev, [key]: !prev[key] }));
+  // Close menu on link click
+  const handleLinkClick = () => {
+    setMobileOpen(false);
+  };
+
+  // Helper to open modal dynamically
+  const openModal = (id) => {
+    const modal = document.getElementById(id);
+    if (modal) modal.showModal();
+  };
+
+  const closeModal = (id) => {
+    const modal = document.getElementById(id);
+    if (modal) modal.close();
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+    <nav className="fixed top-0 left-0 bg-white w-full shadow-lg z-50">
+      <div className="max-w-7xl mx-auto">
+        {/* === Top Section (Logo + Hamburger) === */}
+        <div className="flex justify-between items-center px-4 py-3">
           <div className="flex items-center gap-2">
-            <img src={logo} alt="Logo" className="h-10 w-auto" />
+            <img src={logo} alt="Logo" className="h-16 w-auto" />
             <span className="text-xl font-semibold">
-              <span className="italic text-[#b40e14]">Monowara</span> Group
+              <span className="italic primary-font text-[#b40e14]">
+                Monowara
+              </span>{" "}
+              Group
             </span>
           </div>
 
-          {/* Desktop Menu */}
-          <ul className="hidden lg:flex space-x-6 items-center">
+          {/* Hamburger Icon (Mobile) */}
+          <div className="lg:hidden">
+            <button onClick={() => setMobileOpen(!mobileOpen)}>
+              {mobileOpen ? (
+                <XIcon className="w-6 h-6 text-gray-800" />
+              ) : (
+                <MenuIcon className="w-6 h-6 text-gray-800" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* === Desktop Menu === */}
+        <div className="hidden lg:block bg-white mb-5 px-20">
+          <ul className="flex justify-between items-center text-lg primary-font">
             <li>
               <Link to="/" className="hover:text-[#b40e14]">
                 Home
               </Link>
             </li>
 
-            {/* Services dropdown */}
-            <li className="relative group">
-              <span className="cursor-pointer hover:text-[#b40e14]">
-                Services
-              </span>
-              <ul className="absolute top-full left-0 hidden group-hover:block bg-white shadow-lg rounded-lg py-2 w-48">
-                {Object.keys(services).map((country) => (
-                  <li key={country} className="relative group">
-                    <span className="px-4 py-2 flex justify-between items-center hover:bg-gray-100 cursor-pointer">
-                      {country} ▸
-                    </span>
-                    <ul className="absolute top-0 left-full hidden group-hover:block bg-white shadow-lg rounded-lg py-2 w-40">
-                      {services[country].map((visa) => (
-                        <li key={visa} className="px-4 py-2 hover:bg-gray-100">
-                          {visa}
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </ul>
+            <li>
+              <button
+                className="text-black hover:text-[#b40e14]"
+                onClick={() => openModal("modal_japan")}
+              >
+                Japan
+              </button>
+            </li>
+            <li>
+              <button
+                className="text-black hover:text-[#b40e14]"
+                onClick={() => openModal("modal_germany")}
+              >
+                Germany
+              </button>
+            </li>
+            <li>
+              <button
+                className="text-black hover:text-[#b40e14]"
+                onClick={() => openModal("modal_korea")}
+              >
+                South Korea
+              </button>
             </li>
 
             <li>
@@ -75,110 +94,288 @@ export function NavberWithMobileSubmenu() {
                 Contact Us
               </Link>
             </li>
-          </ul>
-
-          {/* Right Login */}
-          <div className="hidden lg:flex">
-            <Link
-              to="/login"
-              className="btn btn-sm bg-[#b40e14] hover:bg-red-700 text-white rounded-lg"
-            >
-              Login
-            </Link>
-          </div>
-
-          {/* Mobile Hamburger */}
-          <div className="lg:hidden">
-            <button onClick={() => setMobileOpen(!mobileOpen)}>
-              {mobileOpen ? (
-                <XIcon className="w-6 h-6" />
-              ) : (
-                <MenuIcon className="w-6 h-6" />
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {mobileOpen && (
-        <div className="lg:hidden bg-white border-t shadow-md">
-          <ul className="flex flex-col p-4 gap-2">
             <li>
-              <Link
-                to="/"
-                className="block py-2 px-4 hover:bg-gray-100 rounded"
-              >
-                Home
-              </Link>
-            </li>
-
-            {/* Services Submenu */}
-            <li>
-              <button
-                onClick={() => toggleSubmenu("services")}
-                className="w-full flex justify-between items-center py-2 px-4 hover:bg-gray-100 rounded"
-              >
-                Services
-                <span>{mobileSubmenuOpen["services"] ? "▾" : "▸"}</span>
-              </button>
-              {mobileSubmenuOpen["services"] && (
-                <ul className="pl-4 flex flex-col gap-1">
-                  {Object.keys(services).map((country) => (
-                    <li key={country}>
-                      <button
-                        onClick={() => toggleSubmenu(country)}
-                        className="w-full flex justify-between items-center py-1 px-2 hover:bg-gray-100 rounded"
-                      >
-                        {country} {mobileSubmenuOpen[country] ? "▾" : "▸"}
-                      </button>
-                      {mobileSubmenuOpen[country] && (
-                        <ul className="pl-4 flex flex-col gap-1">
-                          {services[country].map((visa) => (
-                            <li key={visa}>
-                              <Link
-                                to="#"
-                                className="block py-1 px-2 hover:bg-gray-100 rounded"
-                              >
-                                {visa}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-
-            <li>
-              <Link
-                to="/about-us"
-                className="block py-2 px-4 hover:bg-gray-100 rounded"
-              >
-                About Us
+              <Link to="/notice" className="hover:text-[#b40e14]">
+                Events
               </Link>
             </li>
             <li>
-              <Link
-                to="/contact-us"
-                className="block py-2 px-4 hover:bg-gray-100 rounded"
-              >
-                Contact Us
+              <Link to="/gallery" className="hover:text-[#b40e14]">
+                Gallery
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard" className="hover:text-[#b40e14]">
+                Dashboard
               </Link>
             </li>
             <li>
               <Link
                 to="/login"
-                className="block py-2 px-4 bg-[#b40e14] text-white rounded hover:bg-red-700"
+                className="btn btn-sm bg-[#b40e14] hover:bg-red-700 text-white rounded-lg"
               >
                 Login
               </Link>
             </li>
           </ul>
         </div>
-      )}
+
+        {/* === Mobile Menu (Dropdown) === */}
+        {mobileOpen && (
+          <div className="lg:hidden bg-white shadow-inner border-t border-gray-200 animate-slideDown">
+            <ul className="flex flex-col space-y-4 p-5 text-lg font-medium primary-font">
+              <Link
+                to="/"
+                onClick={handleLinkClick}
+                className="hover:text-[#b40e14]"
+              >
+                Home
+              </Link>
+
+              <button
+                onClick={() => {
+                  openModal("modal_japan");
+                  handleLinkClick();
+                }}
+                className="text-left text-black hover:text-[#b40e14]"
+              >
+                Japan
+              </button>
+
+              <button
+                onClick={() => {
+                  openModal("modal_germany");
+                  handleLinkClick();
+                }}
+                className="text-left text-black hover:text-[#b40e14]"
+              >
+                Germany
+              </button>
+
+              <button
+                onClick={() => {
+                  openModal("modal_korea");
+                  handleLinkClick();
+                }}
+                className="text-left text-black hover:text-[#b40e14]"
+              >
+                South Korea
+              </button>
+
+              <Link
+                to="/about-us"
+                onClick={handleLinkClick}
+                className="hover:text-[#b40e14]"
+              >
+                About Us
+              </Link>
+              <Link
+                to="/contact-us"
+                onClick={handleLinkClick}
+                className="hover:text-[#b40e14]"
+              >
+                Contact Us
+              </Link>
+              <Link
+                to="/notice"
+                onClick={handleLinkClick}
+                className="hover:text-[#b40e14]"
+              >
+                Events
+              </Link>
+              <Link
+                to="/gallery"
+                onClick={handleLinkClick}
+                className="hover:text-[#b40e14]"
+              >
+                Gallery
+              </Link>
+              <Link
+                to="/dashboard"
+                onClick={handleLinkClick}
+                className="hover:text-[#b40e14]"
+              >
+                Dashboard
+              </Link>
+
+              <Link
+                to="/login"
+                onClick={handleLinkClick}
+                className="w-full text-center py-2 rounded bg-[#b40e14] text-white hover:bg-red-700 transition"
+              >
+                Login
+              </Link>
+            </ul>
+          </div>
+        )}
+      </div>
+
+      {/* === Existing Modals (unchanged) === */}
+
+      {/* JAPAN Modal */}
+      <dialog
+        id="modal_japan"
+        className="modal z-[9999] fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+      >
+        <div className="modal-box max-w-6xl w-11/12 bg-white text-black rounded-2xl shadow-2xl p-10 max-h-[90vh] overflow-y-auto relative">
+          <form method="dialog">
+            <button className="btn btn-lg btn-circle btn-ghost absolute right-4 top-4 text-gray-600 hover:text-red-600 transition">
+              ✕
+            </button>
+          </form>
+          <h3 className="font-extrabold text-4xl md:text-5xl mb-10 text-center text-[#b40e14]">
+            Japanese Language
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-8">
+              <h4 className="text-3xl font-semibold mb-4 text-[#b40e14]">
+                Explore Japan
+              </h4>
+              <Link
+                onClick={() => closeModal("modal_japan")}
+                to="/whyjapan?"
+                className="text-2xl font-medium flex items-center gap-2 hover:text-[#b40e14] transition"
+              >
+                Why Japan? <ArrowRight />
+              </Link>
+              <Link
+                to="/whyjapan-language?"
+                onClick={() => closeModal("modal_japan")}
+                className="text-2xl font-medium flex items-center gap-2 hover:text-[#b40e14] transition"
+              >
+                Why Japanese Language? <ArrowRight />
+              </Link>
+            </div>
+            <div>
+              <h4 className="text-3xl font-semibold mb-6 text-[#b40e14]">
+                Course Description
+              </h4>
+              <ul className="flex flex-col space-y-5 text-lg font-medium">
+                <Link className="hover:underline hover:text-[#b40e14] transition">
+                  JLPT N5
+                </Link>
+                <Link className="hover:underline hover:text-[#b40e14] transition">
+                  NAT Course Description
+                </Link>
+                <Link className="hover:underline hover:text-[#b40e14] transition">
+                  JLPT N4
+                </Link>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </dialog>
+
+      {/* GERMANY Modal */}
+      <dialog
+        id="modal_germany"
+        className="modal z-[9999] fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+      >
+        <div className="modal-box max-w-6xl w-11/12 bg-white text-black rounded-2xl shadow-2xl p-10 max-h-[90vh] overflow-y-auto relative">
+          <form method="dialog">
+            <button className="btn btn-lg btn-circle btn-ghost absolute right-4 top-4 text-gray-600 hover:text-red-600 transition">
+              ✕
+            </button>
+          </form>
+          <h3 className="font-extrabold text-4xl md:text-5xl mb-10 text-center text-[#b40e14]">
+            German Language
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-8">
+              <h4 className="text-3xl font-semibold mb-4 text-[#b40e14]">
+                Explore German
+              </h4>
+              <Link
+                to="/whygerman?"
+                onClick={() => closeModal("modal_germany")}
+                className="text-2xl font-medium flex items-center gap-2 hover:text-[#b40e14] transition"
+              >
+                Why Germany? <ArrowRight />
+              </Link>
+              <Link
+                to="/whygerman-language?"
+                onClick={() => closeModal("modal_germany")}
+                className="text-2xl font-medium flex items-center gap-2 hover:text-[#b40e14] transition"
+              >
+                Why German Language? <ArrowRight />
+              </Link>
+            </div>
+            <div>
+              <h4 className="text-3xl font-semibold mb-6 text-[#b40e14]">
+                Course Description
+              </h4>
+              <ul className="flex flex-col space-y-5 text-lg font-medium">
+                <Link className="hover:underline hover:text-[#b40e14] transition">
+                  A1: BEGINNER
+                </Link>
+                <Link className="hover:underline hover:text-[#b40e14] transition">
+                  A2: Elementary
+                </Link>
+                <Link className="hover:underline hover:text-[#b40e14] transition">
+                  B1: Intermediate
+                </Link>
+                <Link className="hover:underline hover:text-[#b40e14] transition">
+                  B2: Upper Intermediate
+                </Link>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </dialog>
+
+      {/* KOREA Modal */}
+      <dialog
+        id="modal_korea"
+        className="modal z-[9999] fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+      >
+        <div className="modal-box max-w-6xl w-11/12 bg-white text-black rounded-2xl shadow-2xl p-10 max-h-[90vh] overflow-y-auto relative">
+          <form method="dialog">
+            <button className="btn btn-lg btn-circle btn-ghost absolute right-4 top-4 text-gray-600 hover:text-red-600 transition">
+              ✕
+            </button>
+          </form>
+          <h3 className="font-extrabold text-4xl md:text-5xl mb-10 text-center text-[#b40e14]">
+            South Korea
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-8">
+              <h4 className="text-3xl font-semibold mb-4 text-[#b40e14]">
+                Explore South Korea
+              </h4>
+              <Link
+                to="/whyKorea?"
+                onClick={() => closeModal("modal_korea")}
+                className="text-2xl font-medium flex items-center gap-2 hover:text-[#b40e14] transition"
+              >
+                Why South Korea? <ArrowRight />
+              </Link>
+              <Link
+                to="/whyKorea-Language?"
+                onClick={() => closeModal("modal_korea")}
+                className="text-2xl font-medium flex items-center gap-2 hover:text-[#b40e14] transition"
+              >
+                Why Korean Language? <ArrowRight />
+              </Link>
+            </div>
+            <div>
+              <h4 className="text-3xl font-semibold mb-6 text-[#b40e14]">
+                Course Description
+              </h4>
+              <ul className="flex flex-col space-y-5 text-lg font-medium">
+                <Link className="hover:underline hover:text-[#b40e14] transition">
+                  TOPIK I
+                </Link>
+                <Link className="hover:underline hover:text-[#b40e14] transition">
+                  TOPIK II
+                </Link>
+                <Link className="hover:underline hover:text-[#b40e14] transition">
+                  EPS-TOPIK
+                </Link>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </dialog>
     </nav>
   );
 }

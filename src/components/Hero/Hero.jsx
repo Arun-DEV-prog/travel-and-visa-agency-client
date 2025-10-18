@@ -13,7 +13,7 @@ const Hero = () => {
   const slides = [
     {
       image: first,
-      title: "Welcome to Japan Training Center",
+      title: "Welcome to Monowara-Group",
       desc: "Master Japanese language with expert instructors and prepare yourself for study, work, and cultural exchange opportunities in Japan.",
       button: "Join Language Classes",
     },

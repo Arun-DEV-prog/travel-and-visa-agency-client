@@ -9,7 +9,7 @@ const Root = () => {
       <div>
         <Navber />
       </div>
-      <div>
+      <div className=" min-h-screen">
         <Outlet />
       </div>
       <footer>
