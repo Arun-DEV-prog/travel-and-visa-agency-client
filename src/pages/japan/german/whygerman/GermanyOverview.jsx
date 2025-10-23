@@ -95,7 +95,7 @@ const GermanyOverview = () => {
   ];
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen mt-30 md:mt-35">
+    <div className="p-6 primary-font bg-gray-100 min-h-screen mt-30 md:mt-35">
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
         Explore Germany: Opportunities, Culture, and Lifestyle
       </h1>
@@ -105,7 +105,7 @@ const GermanyOverview = () => {
             key={idx}
             className="bg-white rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300"
           >
-            <h2 className="text-xl font-semibold mb-4 text-green-600">
+            <h2 className="text-xl text-center font-semibold mb-4 text-green-600">
               {section.title}
             </h2>
             <ul className="list-disc list-inside space-y-2 text-gray-700">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Menu as MenuIcon, X as XIcon, ArrowRight } from "lucide-react";
 import logo from "../../assets/bg remove logo.png";
 import { Link } from "react-router";
@@ -6,6 +6,15 @@ import { FaArrowRight } from "react-icons/fa";
 
 export default function Navber() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 80) setScrolled(true);
+      else setScrolled(false);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Close menu on link click
   const handleLinkClick = () => {
@@ -24,10 +33,18 @@ export default function Navber() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 bg-white w-full shadow-lg z-50">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500  shadow-md ${
+        scrolled ? "py-2" : "py-4"
+      }`}
+    >
       <div className="max-w-7xl mx-auto">
         {/* === Top Section (Logo + Hamburger) === */}
-        <div className="flex justify-between items-center px-4 py-3">
+        <div
+          className={`flex justify-between items-center px-4 transition-all duration-500 ${
+            scrolled ? "opacity-0 h-0 overflow-hidden" : "opacity-100 h-auto"
+          }`}
+        >
           <div className="flex items-center gap-2">
             <img src={logo} alt="Logo" className="h-16 w-auto" />
             <span className="text-xl font-semibold">
@@ -51,9 +68,9 @@ export default function Navber() {
         </div>
 
         {/* === Desktop Menu === */}
-        <div className="hidden lg:block bg-white mb-5 px-20">
-          <ul className="flex justify-between items-center text-lg primary-font">
-            <li>
+        <div className="hidden lg:block bg-[#aad6ec] mb-5 px-20">
+          <ul className="flex justify-between  items-center text-lg primary-font">
+            <li className=" tex">
               <Link to="/" className="hover:text-[#b40e14]">
                 Home
               </Link>
@@ -85,25 +102,25 @@ export default function Navber() {
             </li>
 
             <li>
-              <Link to="/about-us" className="hover:text-[#b40e14]">
-                About Us
-              </Link>
+              <button
+                className="text-black hover:text-[#b40e14]"
+                onClick={() => openModal("modal_about")}
+              >
+                About us
+              </button>
             </li>
+
             <li>
               <Link to="/contact-us" className="hover:text-[#b40e14]">
                 Contact Us
               </Link>
             </li>
             <li>
-              <Link to="/notice" className="hover:text-[#b40e14]">
+              <Link to="/events" className="hover:text-[#b40e14]">
                 Events
               </Link>
             </li>
-            <li>
-              <Link to="/gallery" className="hover:text-[#b40e14]">
-                Gallery
-              </Link>
-            </li>
+
             <li>
               <Link to="/dashboard" className="hover:text-[#b40e14]">
                 Dashboard
@@ -251,13 +268,25 @@ export default function Navber() {
                 Course Description
               </h4>
               <ul className="flex flex-col space-y-5 text-lg font-medium">
-                <Link className="hover:underline hover:text-[#b40e14] transition">
+                <Link
+                  to="jpltN5"
+                  onClick={() => closeModal("modal_japan")}
+                  className="hover:underline hover:text-[#b40e14] transition"
+                >
                   JLPT N5
                 </Link>
-                <Link className="hover:underline hover:text-[#b40e14] transition">
+                <Link
+                  to="NATcourse"
+                  onClick={() => closeModal("modal_japan")}
+                  className="hover:underline hover:text-[#b40e14] transition"
+                >
                   NAT Course Description
                 </Link>
-                <Link className="hover:underline hover:text-[#b40e14] transition">
+                <Link
+                  to="N4course"
+                  onClick={() => closeModal("modal_japan")}
+                  className="hover:underline hover:text-[#b40e14] transition"
+                >
                   JLPT N4
                 </Link>
               </ul>
@@ -305,16 +334,32 @@ export default function Navber() {
                 Course Description
               </h4>
               <ul className="flex flex-col space-y-5 text-lg font-medium">
-                <Link className="hover:underline hover:text-[#b40e14] transition">
+                <Link
+                  to="A1course"
+                  onClick={() => closeModal("modal_germany")}
+                  className="hover:underline hover:text-[#b40e14] transition"
+                >
                   A1: BEGINNER
                 </Link>
-                <Link className="hover:underline hover:text-[#b40e14] transition">
+                <Link
+                  to="A2course"
+                  onClick={() => closeModal("modal_germany")}
+                  className="hover:underline hover:text-[#b40e14] transition"
+                >
                   A2: Elementary
                 </Link>
-                <Link className="hover:underline hover:text-[#b40e14] transition">
+                <Link
+                  to="B1course"
+                  onClick={() => closeModal("modal_germany")}
+                  className="hover:underline hover:text-[#b40e14] transition"
+                >
                   B1: Intermediate
                 </Link>
-                <Link className="hover:underline hover:text-[#b40e14] transition">
+                <Link
+                  to="B2course"
+                  onClick={() => closeModal("modal_germany")}
+                  className="hover:underline hover:text-[#b40e14] transition"
+                >
                   B2: Upper Intermediate
                 </Link>
               </ul>
@@ -362,14 +407,77 @@ export default function Navber() {
                 Course Description
               </h4>
               <ul className="flex flex-col space-y-5 text-lg font-medium">
-                <Link className="hover:underline hover:text-[#b40e14] transition">
+                <Link
+                  to="Topik1course"
+                  onClick={() => closeModal("modal_korea")}
+                  className="hover:underline hover:text-[#b40e14] transition"
+                >
                   TOPIK I
                 </Link>
-                <Link className="hover:underline hover:text-[#b40e14] transition">
+                <Link
+                  to="Topik2course"
+                  onClick={() => closeModal("modal_korea")}
+                  className="hover:underline hover:text-[#b40e14] transition"
+                >
                   TOPIK II
                 </Link>
-                <Link className="hover:underline hover:text-[#b40e14] transition">
+                <Link
+                  to="EpsTopikcourse"
+                  onClick={() => closeModal("modal_korea")}
+                  className="hover:underline hover:text-[#b40e14] transition"
+                >
                   EPS-TOPIK
+                </Link>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </dialog>
+      <dialog
+        id="modal_about"
+        className="modal z-[9999] fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+      >
+        <div className="modal-box max-w-6xl w-11/12 bg-white text-black rounded-2xl shadow-2xl p-10 max-h-[90vh] overflow-y-auto relative">
+          <form method="dialog">
+            <button className="btn btn-lg btn-circle btn-ghost absolute right-4 top-4 text-gray-600 hover:text-red-600 transition">
+              ✕
+            </button>
+          </form>
+          <h3 className="font-extrabold text-4xl md:text-5xl mb-10 text-center text-[#b40e14]">
+            About us
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-8">
+              <Link
+                to="staff"
+                onClick={() => closeModal("modal_about")}
+                className="text-2xl font-medium flex items-center gap-2 hover:text-[#b40e14] transition"
+              >
+                Staff <ArrowRight />
+              </Link>
+              <Link
+                to="/whyKorea-Language?"
+                onClick={() => closeModal("modal_korea")}
+                className="text-2xl font-medium flex items-center gap-2 hover:text-[#b40e14] transition"
+              >
+                Goal <ArrowRight />
+              </Link>
+            </div>
+            <div>
+              <ul className="flex flex-col space-y-5 text-lg font-medium">
+                <Link
+                  to="History"
+                  onClick={() => closeModal("modal_about")}
+                  className="hover:underline hover:text-[#b40e14] transition"
+                >
+                  History
+                </Link>
+                <Link
+                  to="activites"
+                  onClick={() => closeModal("modal_about")}
+                  className="hover:underline hover:text-[#b40e14] transition"
+                >
+                  Activities
                 </Link>
               </ul>
             </div>

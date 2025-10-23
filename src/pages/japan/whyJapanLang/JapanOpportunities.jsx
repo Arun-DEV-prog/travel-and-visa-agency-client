@@ -75,7 +75,7 @@ const JapanOpportunities = () => {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen mt-20 md:mt-35">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+      <h1 className="text-3xl font-bold mb-6 primary-font text-center text-gray-800">
         Japan Opportunities for Students & Workers
       </h1>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -84,10 +84,10 @@ const JapanOpportunities = () => {
             key={idx}
             className="bg-white rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300"
           >
-            <h2 className="text-xl font-semibold mb-4 text-blue-600">
+            <h2 className="text-xl text-center primary-font font-semibold mb-4 text-blue-600">
               {section.title}
             </h2>
-            <ul className="list-disc list-inside space-y-2 text-gray-700">
+            <ul className="list-disc primary-font list-inside space-y-2 text-gray-700">
               {section.content.map((item, i) => (
                 <li key={i} dangerouslySetInnerHTML={{ __html: item }} />
               ))}

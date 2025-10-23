@@ -18,7 +18,7 @@ const JLPT_N5 = () => {
       return res.data;
     },
   });
-  console.log(course);
+  //console.log(course);
   if (isLoading) return <Loading />;
   return (
     <div className="max-w-5xl h-[1000px] mx-auto px-4 py-8">

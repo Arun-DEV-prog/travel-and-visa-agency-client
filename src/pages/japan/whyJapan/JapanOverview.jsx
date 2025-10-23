@@ -20,7 +20,7 @@ Blessed with natural beauty, mountains, rivers, forests, and seas, Japan stands 
   ];
 
   return (
-    <div className="max-w-7xl min-h-screen mx-auto p-6 mt-40 space-y-16">
+    <div className="max-w-7xl min-h-screen mx-auto p-6 mt-40 primary-font space-y-16">
       {sections.map((section, idx) => {
         const isEven = idx % 2 === 0;
         return (

@@ -94,8 +94,8 @@ const LearnGerman = () => {
   ];
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen mt-20 md:mt-36">
-      <h1 className="text-4xl font-bold mb-8 text-center text-gray-900">
+    <div className="p-6 primary-font bg-gray-100 min-h-screen mt-20 md:mt-36">
+      <h1 className="text-4xl font-bold mb-10 mt-10 text-center text-gray-900">
         Learning German: Opportunities & Career Pathways
       </h1>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -104,7 +104,7 @@ const LearnGerman = () => {
             key={index}
             className="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition-shadow duration-300 border-l-4 border-blue-500"
           >
-            <h2 className="text-2xl font-semibold mb-4 text-blue-700">
+            <h2 className="text-2xl text-center font-semibold mb-4 text-blue-700">
               {section.title}
             </h2>
             <p className="text-gray-700 leading-relaxed mb-3">

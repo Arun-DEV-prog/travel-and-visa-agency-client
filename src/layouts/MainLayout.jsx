@@ -16,9 +16,9 @@ const MainLayout = () => {
       </nav>
       <main className=" mt-7 md:mt-30">
         <Hero />
-        <AllCourses />
+        {/*<AllCourses />*/}
         <Staff />
-        <Testimonials />
+        {/*<Testimonials />*/}
         <Services />
       </main>
     </div>
