@@ -16,7 +16,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import JapanOverview from "../pages/japan/whyJapan/JapanOverview";
 import JapanOpportunities from "../pages/japan/whyJapanLang/JapanOpportunities";
 import GermanyOverview from "../pages/japan/german/whygerman/GermanyOverview";
-import LearnGerman from "../pages/japan/german/jarmanLanguage/Learngerman";
+
 import SouthKoreaOverview from "../pages/korea/whyKorea/SouthKoreaOverview";
 import koraLanguage from "../pages/korea/whyKoraLanguage/koraLanguage";
 import JLPTCourseForm from "../Dashboard/Japan/JLPTCourseForm";
@@ -38,6 +38,7 @@ import B1CourseList from "../pages/japan/german/B1CouseList/B1CouseList";
 import B2CourseForm from "../Dashboard/German/B2CourseForm";
 import B1CourseForm from "../Dashboard/German/B1CouseForm";
 import B2CourseShow from "../pages/japan/german/B2CouseList/B2CourseShow";
+import LearnGerman from "../pages/japan/german/jarmanLanguage/LearnGerman";
 import Topik1CourseForm from "../Dashboard/Korea/Topik1CourseForm";
 import Topik1Courses from "../pages/korea/TopikCourse/Topik1Courses";
 import Topik2CourseForm from "../Dashboard/Korea/Topik2CourseForm";
